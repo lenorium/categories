@@ -1,8 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import sessionmaker
 
 from config import Settings
+from models import Base
 
 settings = Settings(_env_file='.env')
 connect_url = {
@@ -15,5 +16,4 @@ connect_url = {
 }
 engine = create_engine(URL(**connect_url), echo=True)
 session_maker = sessionmaker(bind=engine)
-Base = declarative_base()
 Base.metadata.create_all(engine)

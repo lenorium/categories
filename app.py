@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 import crud
 import schemas
+from config import settings
 from database import session_maker
 from models import Category, Product
 
@@ -17,7 +18,7 @@ def get_session():
 
 @app.get('/')
 def home():
-    return {'Data': 'Testing'}
+    return 'It works!'
 
 
 @app.get('/products', response_model=list[schemas.Product])
@@ -52,4 +53,5 @@ def init_db():
 
 
 if __name__ == '__main__':
-    uvicorn.run("app:app", port=8000, log_level="debug", reload=True)
+    init_db()
+    uvicorn.run("app:app", host='0.0.0.0', port=settings.api_port, log_level=settings.log_level, reload=True)
